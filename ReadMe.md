@@ -14,9 +14,13 @@
 ***# cd ArRtspTool
 ***# cp Makefile.pi Makefile
 ***# make && make install
+```
+
+​		启动程序，运行之前记得先配置一下相关参数
+
+```
 ***# chmod +x run.sh
 ***# ./run.sh start ArRtspTool rtsp.conf 
-
 ```
 
 ​		停止程序
