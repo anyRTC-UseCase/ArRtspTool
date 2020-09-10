@@ -6,7 +6,7 @@
 
 ### 二，编译
 
-​		下载代码到本地：Git clone https://github.com/anyRTC-UseCase/ArRtspTool.git
+​		下载代码到本地：git clone https://github.com/anyRTC-UseCase/ArRtspTool.git
 
 ​		以树莓派为例：
 
