@@ -14,6 +14,9 @@
 #include "config.h"
 #include "RtspToRtc.h"
 #include "XUtil.h"
+#ifdef NV_RTX
+#include "NvToRtc.h"
+#endif
 
 int main(int argc, char*argv[])
 {
@@ -30,13 +33,15 @@ int main(int argc, char*argv[])
 
 	initARtSEngine();
 
-	RtspToRtc* rtspToRtc = new RtspToRtc();
+
 	std::string strRtspUrl = conf.GetValue("rtsp", "url");
-	if (strRtspUrl.length() == 0) {
-		std::cout << "Rtsp url is null..." << std::endl;
+	std::string strDevId = conf.GetValue("nv", "dev_id");
+	if (strRtspUrl.length() == 0 && strDevId.length() == 0) {
+		std::cout << "Rtsp url & devId is null..." << std::endl;
 		getchar();
 		return -1;
 	}
+
 	std::string strAppId = conf.GetValue("rtc", "app_id");
 	if (strAppId.length() == 0) {
 		std::cout << "Rtc appId is null..." << std::endl;
@@ -50,23 +55,48 @@ int main(int argc, char*argv[])
 		return -1;
 	}
 
-	if (rtspToRtc->StartTask(strRtspUrl, strAppId, strChanId) != 0) {
-		std::cout << "Rtsp to rtc start got error!" << std::endl;
+	VidToRtc* vidToRtc = NULL;
+	if (strRtspUrl.length() > 0) {
+		vidToRtc = new RtspToRtc();
+
+		if (vidToRtc->StartTask(strRtspUrl, strAppId, strChanId) != 0) {
+			std::cout << "Rtsp to rtc start got error!" << std::endl;
+			getchar();
+			return -1;
+		}
+	}
+	
+#ifdef NV_RTX
+	else {
+		if (strDevId.length() > 0) {
+			vidToRtc = new NvToRtc();
+
+			if (vidToRtc->StartTask(strDevId, strAppId, strChanId) != 0) {
+				std::cout << "Nv to rtc start got error!" << std::endl;
+				getchar();
+				return -1;
+			}
+		}
+	}
+#endif
+	if (vidToRtc == NULL) {
+		std::cout << "Create DevToRtc failed!..." << std::endl;
 		getchar();
 		return -1;
 	}
+	
 
 	while (1) {
-		if (!rtspToRtc->DoProcess()) {
+		if (!vidToRtc->DoProcess()) {
 			break;
 		}
 
 		XSleep(1);
 	}
 
-	rtspToRtc->StopTask();
-	delete rtspToRtc;
-	rtspToRtc = NULL;
+	vidToRtc->StopTask();
+	delete vidToRtc;
+	vidToRtc = NULL;
 	deinitARtSEngine();
 
 	return 0;
