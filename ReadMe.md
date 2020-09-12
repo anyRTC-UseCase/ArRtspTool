@@ -8,7 +8,15 @@
 
 ​		下载代码到本地：git clone https://github.com/anyRTC-UseCase/ArRtspTool.git
 
-​		以树莓派为例：
+​		编译脚本对应的平台(已验证，其他平台或系统版本可联系我司进行确认)：
+
+```
+Makefile.linux  - Centos7.0及以上
+Makefile.pi		- 树莓派4
+Makefile.tx		- Nvidia TX2
+```
+
+​		以树莓派为例(以下命令均以root运行，非root可能会报权限错误)：
 
 ```
 ***# cd ArRtspTool
