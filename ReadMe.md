@@ -4,6 +4,8 @@
 
 ​	支持常见的Linux、Windows、树莓派、英伟达TX系列等等。
 
+​	支持Rtsp流，支持USB摄像头，支持窗口推流等等。
+
 ### 二，编译
 
 ​		下载代码到本地：git clone https://github.com/anyRTC-UseCase/ArRtspTool.git
