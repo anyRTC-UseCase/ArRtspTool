@@ -57,12 +57,17 @@ Makefile.tx		- Nvidia TX2
 [rtsp]
 url=你的Rtsp流的Url
 
+[nv]
+dev_id=设备ID(/dev/video0)
+
 [rtc]
 app_id=rtc的AppId，
 chan_id=频道ID,可设置任意值，web或App通过此ID可以观看rtsp的流
 ```
 
 ​	AppId的获取可以登录[anyRTC](https://console.anyrtc.io/signin)官网获取
+
+​	**注意：** Rtsp地址和设备ID二者选其一，优先Rtsp地址，若推本地摄像头则无需配置Rtsp地址
 
 ### 四，常见问题
 
