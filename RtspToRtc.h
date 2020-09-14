@@ -3,17 +3,18 @@
 #include <string>
 #include "XRtspClient.h"
 #include "ARtS.h"
+#include "VidToRtc.h"
 
-class RtspToRtc : public XRtspEventCallback, public ARtSEvent
+class RtspToRtc : public VidToRtc, public XRtspEventCallback, public ARtSEvent
 {
 public:
 	RtspToRtc(void);
 	virtual ~RtspToRtc(void);
 
-	int StartTask(const std::string&strRtspUrl, const std::string&strAppId, const std::string&strChanId);
-	void StopTask();
+	virtual int StartTask(const std::string&strRtspUrl, const std::string&strAppId, const std::string&strChanId);
+	virtual void StopTask();
 
-	bool DoProcess();
+	virtual bool DoProcess();
 
 	//* For XRtspEventCallback
 	virtual void OnRtspConnecting();
