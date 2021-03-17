@@ -73,6 +73,11 @@ chan_id=频道ID,可设置任意值，web或App通过此ID可以观看rtsp的流
 
 详见[常见问题](https://docs.anyrtc.io/platforms/docs/platforms/FAQ/faq)。
 
+**Buglist：**
+ Bug001 : TX2: no element "h264parse"
+ 解决001：
+ `sudo apt-get install gstreamer1.0-plugins-bad`
+
 **anyRTC创业扶持计划**
 
 - 30万免费分钟数，助力初创企业快速发展。
