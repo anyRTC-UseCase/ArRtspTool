@@ -5,8 +5,9 @@ TARGET = ./ArRtspTool
 C++ = g++
 CC = gcc
 INCLUDE_FLAG = -include
-INCPATH = -I./ -I../RtspEngine/XRtspClient -I../ARtcStrm 
-LIBPATH = -lpthread -lz -L../out/Linux -lRtspClient -lARtcStrm -lRtxpChan -lXUdpRpc -lboringssl 
+INCPATH = -I./ -I./include
+LIBPATH = -lpthread -lz -L./lib_linux -lRtspClient -lARtcStrm -lRtxpChan -lXUdpRpc -lboringssl 
+
 CCFLAGS += -Wall -D_GNU_SOURCE -DNDEBUG -O2 -DPOSIX -DARRTC_EXPORT -DNO_DL -DFEATURE_ENABLE_SSL -D__STDC_FORMAT_MACROS -D__STDC_CONSTANT_MACROS
 LFLAGS	= -w -lrt -ldl 
 
