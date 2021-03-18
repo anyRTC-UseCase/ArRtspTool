@@ -11,6 +11,8 @@ public:
 	RtspToRtc(void);
 	virtual ~RtspToRtc(void);
 
+	void SetUseTcp(int nUseTcp);
+
 	virtual int StartTask(const std::string&strRtspUrl, const std::string&strAppId, const std::string&strChanId);
 	virtual void StopTask();
 
@@ -35,6 +37,7 @@ private:
 	XRtspClient*	rtsp_client_;
 
 	ARtS*			rtc_client_;
+	bool			b_use_tcp_;
 };
 
 #endif	// __RTSP_TO_RTC_H__

@@ -3,12 +3,24 @@
 RtspToRtc::RtspToRtc(void)
 	: rtsp_client_(NULL)
 	, rtc_client_(NULL)
+	, b_use_tcp_(false)
 {
 
 }
 RtspToRtc::~RtspToRtc(void)
 {
 
+}
+
+void RtspToRtc::SetUseTcp(int nUseTcp)
+{
+	if (nUseTcp == 0) {
+		b_use_tcp_ = false;
+	}
+	else
+	{
+		b_use_tcp_ = true;
+	}
 }
 
 int RtspToRtc::StartTask(const std::string&strRtspUrl, const std::string&strAppId, const std::string&strChanId)
@@ -21,7 +33,7 @@ int RtspToRtc::StartTask(const std::string&strRtspUrl, const std::string&strAppI
 		rtc_client_->join_channel(strChanId.c_str(), "", 0);
 	}
 	if (rtsp_client_ == NULL) {
-		rtsp_client_ = CreateRtspClient(*this, strRtspUrl.c_str(), false);
+		rtsp_client_ = CreateRtspClient(*this, strRtspUrl.c_str(), b_use_tcp_);
 	}
 	return 0;
 }

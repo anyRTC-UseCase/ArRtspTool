@@ -35,6 +35,7 @@ int main(int argc, char*argv[])
 
 
 	std::string strRtspUrl = conf.GetValue("rtsp", "url");
+	int nUseTcp = conf.GetIntVal("rtsp", "use_tcp");
 	std::string strDevId = conf.GetValue("nv", "dev_id");
 	if (strRtspUrl.length() == 0 && strDevId.length() == 0) {
 		std::cout << "Rtsp url & devId is null..." << std::endl;
@@ -58,6 +59,7 @@ int main(int argc, char*argv[])
 	VidToRtc* vidToRtc = NULL;
 	if (strRtspUrl.length() > 0) {
 		vidToRtc = new RtspToRtc();
+		((RtspToRtc*)vidToRtc)->SetUseTcp(nUseTcp);
 
 		if (vidToRtc->StartTask(strRtspUrl, strAppId, strChanId) != 0) {
 			std::cout << "Rtsp to rtc start got error!" << std::endl;
