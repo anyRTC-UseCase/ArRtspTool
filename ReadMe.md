@@ -77,7 +77,7 @@ chan_id=频道ID,可设置任意值，web或App通过此ID可以观看rtsp的流
 
 输入 AppID 和 Channel 后点击Join as audience 按钮进行观看。
 
-**观看集成到自己的系统中**
+**观看端集成到自己的系统中**
 
 - 前往[下载中心](https://docs.anyrtc.io/download)下载对应的开发SDK.
 - 前往[开发者文档](https://docs.anyrtc.io/)，对应平台查看集成文档
