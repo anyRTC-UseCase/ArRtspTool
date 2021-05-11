@@ -69,7 +69,20 @@ chan_id=频道ID,可设置任意值，web或App通过此ID可以观看rtsp的流
 
 ​	**注意：** Rtsp地址和设备ID二者选其一，优先Rtsp地址，若推本地摄像头则无需配置Rtsp地址
 
-### 四，常见问题
+### 四，如何观看
+
+**在线体验**
+
+前往[体验demo](https://demos.anyrtc.io/Demo/basicLive/index.html)
+
+输入 AppID 和 Channel 后点击Join as audience 按钮进行观看。
+
+**观看端集成到自己的系统中**
+
+- 前往[下载中心](https://docs.anyrtc.io/download)下载对应的开发SDK.
+- 前往[开发者文档](https://docs.anyrtc.io/)，对应平台查看集成文档
+
+### 五，常见问题
 
 详见[常见问题](https://docs.anyrtc.io/platforms/docs/platforms/FAQ/faq)。
 
@@ -88,7 +101,7 @@ chan_id=频道ID,可设置任意值，web或App通过此ID可以观看rtsp的流
 
 > [anyRTC](https://www.anyrtc.io)为初创企业提供一对一专属客服，为客户提供专业、认真的服务，及时解答您的疑惑。并为客户提供专属技术指导，更快上手，轻松上线！
 
-### 五，联系我们
+### 六，联系我们
 
 联系电话：021-65650071
 
