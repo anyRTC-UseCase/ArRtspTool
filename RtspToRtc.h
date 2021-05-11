@@ -4,6 +4,7 @@
 #include "XRtspClient.h"
 #include "ARtS.h"
 #include "VidToRtc.h"
+#include "IArRtcEngine.h"
 
 class RtspToRtc : public VidToRtc, public XRtspEventCallback, public ARtSEvent
 {
