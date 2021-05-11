@@ -1,7 +1,6 @@
 #ifndef __A_RT_S_H__
 #define __A_RT_S_H__
 #include "ArBase.h"
-#include "IArRtcEngine.h"
 #include <stdint.h>
 
 class ARtSEvent
@@ -28,12 +27,6 @@ public:
 	virtual void on_data_from_rdt(const char *channel, const char * uid, const void *data, size_t data_len) {};
 	virtual void on_dec_bitrate(const char *channel, uint32_t bps) {};
 	virtual void on_inc_bitrate(const char *channel, uint32_t bps) {};
-
-	virtual void on_rtc_stats(const AR::RtcStats& stats) {};
-	virtual void on_local_video_stats(const AR::LocalVideoStats& stats) {};
-	virtual void on_remote_video_stats(const AR::RemoteVideoStats& stats) {};
-	virtual void on_local_audio_stats(const AR::LocalAudioStats& stats) {};
-	virtual void on_remote_audio_stats(const AR::RemoteAudioStats& stats) {};
 };
 
 class ARtS{
