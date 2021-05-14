@@ -4,6 +4,7 @@
 #include "RtxNvCap.h"
 #include "ARtS.h"
 #include "VidToRtc.h"
+#include "IArRtcEngine.h"
 
 class NvToRtc : public VidToRtc, public RtxNvCapEnvent, public ARtSEvent
 {

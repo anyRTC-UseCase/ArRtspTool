@@ -1,4 +1,5 @@
 CurPath=$(pwd)
+#CurPath=/usr/local/ar4/rtsp
 Bin=$2
 Conf=$3
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib_run
