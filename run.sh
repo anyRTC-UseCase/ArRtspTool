@@ -47,7 +47,7 @@ Start()
 Stop()
 {
 	echo -n "Stopping Dync Server(${Bin}): "
-	killall ${Bin}
+	pkill ${Bin}
 	echo
 	return 0
 }

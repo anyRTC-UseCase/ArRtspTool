@@ -1,6 +1,6 @@
 #ifndef __X_RTSP_CLIENT_H__
 #define __X_RTSP_CLIENT_H__
-#include "ArBase.h"
+#include "arts_def.h"
 
 class XRtspEventCallback
 {
@@ -24,7 +24,7 @@ protected:
 	
 };
 
-AR_API XRtspClient* AR_CALL CreateRtspClient(XRtspEventCallback &rCallback, char const* rtspURL, bool bUseTcp);
+__ar_api__ XRtspClient* CreateRtspClient(XRtspEventCallback &rCallback, char const* rtspURL, bool bUseTcp);
 
 
 #endif	// __X_RTSP_CLIENT_H__

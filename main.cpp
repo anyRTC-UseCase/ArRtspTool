@@ -12,13 +12,11 @@
 
 #include <iostream>
 #include "config.h"
-#include "RtspToRtc.h"
+#include "PullToRtc1xN.h"
+#include "PullToRtcNxN.h"
 #include "XUtil.h"
-#ifdef NV_RTX
-#include "NvToRtc.h"
-#endif
 
-int main(int argc, char*argv[])
+int main(int argc, char* argv[])
 {
 	ConfigSet	conf;
 	if (argc > 1)
@@ -30,18 +28,7 @@ int main(int argc, char*argv[])
 		getchar();
 		exit(0);
 	}
-
-	initARtSEngine();
-
-
-	std::string strRtspUrl = conf.GetValue("rtsp", "url");
-	int nUseTcp = conf.GetIntVal("rtsp", "use_tcp");
-	std::string strDevId = conf.GetValue("nv", "dev_id");
-	if (strRtspUrl.length() == 0 && strDevId.length() == 0) {
-		std::cout << "Rtsp url & devId is null..." << std::endl;
-		getchar();
-		return -1;
-	}
+	
 
 	std::string strAppId = conf.GetValue("rtc", "app_id");
 	if (strAppId.length() == 0) {
@@ -49,57 +36,120 @@ int main(int argc, char*argv[])
 		getchar();
 		return -1;
 	}
-	std::string strChanId = conf.GetValue("rtc", "chan_id");
-	if (strChanId.length() == 0) {
+	std::string strMode = conf.GetValue("rtc", "mode");
+	if (strMode.compare("1xN") != 0 && strMode.compare("NxN") != 0) {
+		std::cout << "Rtc mode must be: 1xN; NxN." << std::endl;
+		getchar();
+		return -1;
+	}
+	std::string strChanIds = conf.GetValue("rtc", "chan_id");
+	if (strChanIds.length() == 0) {
 		std::cout << "Rtc chanId is null..." << std::endl;
 		getchar();
 		return -1;
 	}
+	//* 支持单路流推多频道
+	std::vector<std::string> strArr;
+	int nArr = XSplitChar(strChanIds.c_str(), ';', &strArr);
+	std::string strChanId = strArr[0];
 
-	VidToRtc* vidToRtc = NULL;
-	if (strRtspUrl.length() > 0) {
-		vidToRtc = new RtspToRtc();
-		((RtspToRtc*)vidToRtc)->SetUseTcp(nUseTcp);
 
-		if (vidToRtc->StartTask(strRtspUrl, strAppId, strChanId) != 0) {
-			std::cout << "Rtsp to rtc start got error!" << std::endl;
-			getchar();
-			return -1;
+	VidToRtc1xN* vidToRtc1xN = NULL;
+	VidToRtcNxN* vidToRtcNxN = NULL;
+	if (strMode.compare("1xN") == 0) {
+		// 单路流推到1个或多个频道
+		vidToRtc1xN = new PullToRtc1xN();
+		std::string strType = conf.GetValue("1xN", "type");
+		if (strType.compare("rtsp") == 0) {
+			std::string strRtspUrl = conf.GetValue("1xN", "url");
+			int nUseTcp = conf.GetIntVal("1xN", "use_tcp");
+			if (strRtspUrl.length() == 0) {
+				std::cout << "Rtsp url is null..." << std::endl;
+				getchar();
+				return -1;
+			}
+			PullMode pmode = nUseTcp == 1 ? PM_RTSP_TCP : PM_RTSP_UDP;
+			if (vidToRtc1xN->StartTask(strRtspUrl, pmode, strAppId, strChanId) != 0) {
+				std::cout << "Rtsp to rtc start got error!" << std::endl;
+				getchar();
+				return -1;
+			}
 		}
-	}
-	
-#ifdef NV_RTX
-	else {
-		if (strDevId.length() > 0) {
-			vidToRtc = new NvToRtc();
-
-			if (vidToRtc->StartTask(strDevId, strAppId, strChanId) != 0) {
+		else {
+			std::string strDevId = conf.GetValue("1xN", "dev_id");
+			if (strDevId.length() == 0) {
+				std::cout << "Nv DevId is null..." << std::endl;
+				getchar();
+				return -1;
+			}
+			if (vidToRtc1xN->StartTask(strDevId, PM_NV_DEV, strAppId, strChanId) != 0) {
 				std::cout << "Nv to rtc start got error!" << std::endl;
 				getchar();
 				return -1;
 			}
 		}
+		for (int i = 1; i < nArr; i++) {
+			std::string& strChanId = strArr[i];
+			vidToRtc1xN->AddTask(strChanId);
+		}
 	}
-#endif
-	if (vidToRtc == NULL) {
-		std::cout << "Create DevToRtc failed!..." << std::endl;
-		getchar();
-		return -1;
+	else {
+		// 多路流推到1个或多个频道
+		vidToRtcNxN = new PullToRtcNxN();
+		vidToRtcNxN->StartTask(strAppId);
+		for (int i = 0; i < nArr; i++) {
+			std::string& strChanId = strArr[i];
+			std::string strType = conf.GetValue(strChanId.c_str(), "type");
+			if (strType.compare("rtsp") == 0) {
+				std::string strRtspUrl = conf.GetValue(strChanId.c_str(), "url");
+				int nUseTcp = conf.GetIntVal(strChanId.c_str(), "use_tcp");
+				if (strRtspUrl.length() != 0) {
+					PullMode pmode = nUseTcp == 1 ? PM_RTSP_TCP : PM_RTSP_UDP;
+					//* 支持一次性转多路流推到一个频道
+					std::vector<std::string> strRtspArr;
+					int nRtspArr = XSplitChar(strRtspUrl.c_str(), ';', &strRtspArr);
+					for (int j = 0; j < nRtspArr; j++) {
+						vidToRtcNxN->AddTask(strRtspArr[j], pmode, strChanId);
+					}
+				}
+			}
+			else {
+				std::string strDevId = conf.GetValue(strChanId.c_str(), "dev_id");
+				//* 支持一次打开多个设备推到一个频道
+				std::vector<std::string> strDevArr;
+				int nDevArr = XSplitChar(strDevId.c_str(), ';', &strDevArr);
+				if (strDevId.length() != 0) {
+					for (int j = 0; j < nDevArr; j++) {
+						vidToRtcNxN->AddTask(strDevArr[j], PM_NV_DEV, strChanId);
+					}
+				}
+			}
+		}
 	}
 	
 
 	while (1) {
-		if (!vidToRtc->DoProcess()) {
+		if (vidToRtc1xN!= NULL && !vidToRtc1xN->DoProcess()) {
+			break;
+		}
+		else if (vidToRtcNxN != NULL && !vidToRtcNxN->DoProcess()) {
 			break;
 		}
 
 		XSleep(1);
 	}
 
-	vidToRtc->StopTask();
-	delete vidToRtc;
-	vidToRtc = NULL;
-	deinitARtSEngine();
+	if (vidToRtc1xN != NULL) {
+		vidToRtc1xN->StopTask();
+		delete vidToRtc1xN;
+		vidToRtc1xN = NULL;
+	}
+
+	if (vidToRtcNxN != NULL) {
+		vidToRtcNxN->StopTask();
+		delete vidToRtcNxN;
+		vidToRtcNxN = NULL;
+	}
 
 	return 0;
 }

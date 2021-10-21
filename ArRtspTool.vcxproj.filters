@@ -21,10 +21,13 @@
     <ClCompile Include="config.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="RtspToRtc.cpp">
+    <ClCompile Include="PullToRtc1xN.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="XUtil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PullToRtcNxN.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,16 +35,22 @@
     <ClInclude Include="config.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RtspToRtc.h">
+    <ClInclude Include="PullToRtc1xN.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="XUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NvToRtc.h">
+    <ClInclude Include="VidToRtc1xN.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VidToRtc.h">
+    <ClInclude Include="VidToRtcNxN.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PullToRtcNxN.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PullMode.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

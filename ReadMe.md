@@ -16,6 +16,14 @@
 
 ​	4，小区门禁：实时监看，双向对讲，远程操控
 
+​	**新增模式选择：**
+
+​	1xN模式：源只有1个，可以转到1个或多个频道中去
+
+​	NxN模式：源有多个，可以转到1个或多个频道中去
+
+​	**???**为什么需要1xN模式，因为NxN模式是拉一路流转到一个频道；如果需要把1路流转到N个频道，NxN模式需要拉N路相同的流，这很明显是一种资源浪费。
+
 ### 二，编译
 
 ​		下载代码到本地：git clone https://github.com/anyRTC-UseCase/ArRtspTool.git
@@ -23,7 +31,7 @@
 ​		编译脚本对应的平台(已验证，其他平台或系统版本可联系我司进行确认)：
 
 ```
-Makefile.linux  - Centos7.0及以上
+Makefile.linux  - Centos7.0及以上或Unbuntu
 Makefile.pi		- 树莓派4
 Makefile.tx		- Nvidia TX2
 ```
@@ -32,8 +40,8 @@ Makefile.tx		- Nvidia TX2
 
 ```
 ***# cd ArRtspTool
-***# cp Makefile.pi Makefile
-***# make && make install
+***# chmod +x make.sh
+***# ./make.sh (common | r-pi | nv-tx)
 ```
 
 ​		启动程序，运行之前记得先配置一下相关参数
@@ -63,6 +71,22 @@ dev_id=设备ID(/dev/video0)
 [rtc]
 app_id=rtc的AppId，
 chan_id=频道ID,可设置任意值，web或App通过此ID可以观看rtsp的流
+#mode: 1xN; NxN
+mode=NxN
+
+[1xN]
+type=rtsp
+url=你的Rtsp流的Url
+use_tcp=1
+
+[909090]
+type=nvcam
+dev_id=设备ID(/dev/video0)
+
+[808080]
+type=rtsp
+url=你的Rtsp流的Url1;你的Rtsp流的Url2 (多个流地址之间用;分割，表示将多个视频源转到一个房间里面)
+use_tcp=1
 ```
 
 ​	AppId的获取可以登录[anyRTC](https://console.anyrtc.io/signin)官网获取

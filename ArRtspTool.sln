@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1433
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArRtspTool", "ArRtspTool.vcxproj", "{C6B2EB69-42DB-47B5-9807-C0CB4331BA63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rtsp", "Rtsp", "{9C214CE9-90F5-48B4-B6AA-6AFB3170B12B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicUsageEnvironment", "RtspEngine\BasicUsageEnvironment\BasicUsageEnvironment.vcxproj", "{E9417ED1-4243-42D7-B43F-DE4B95BF440D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "groupsock", "RtspEngine\groupsock\groupsock.vcxproj", "{141CEBF6-A03B-469E-966E-231B416F4EAF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liveMedia", "RtspEngine\liveMedia\liveMedia.vcxproj", "{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UsageEnvironment", "RtspEngine\UsageEnvironment\UsageEnvironment.vcxproj", "{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XRtspClient", "RtspEngine\XRtspClient\XRtspClient.vcxproj", "{EE57BC43-0540-414E-83E9-CBF1FBFAB770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,11 +33,48 @@ Global
 		{C6B2EB69-42DB-47B5-9807-C0CB4331BA63}.Release|x64.Build.0 = Release|x64
 		{C6B2EB69-42DB-47B5-9807-C0CB4331BA63}.Release|x86.ActiveCfg = Release|Win32
 		{C6B2EB69-42DB-47B5-9807-C0CB4331BA63}.Release|x86.Build.0 = Release|Win32
+		{E9417ED1-4243-42D7-B43F-DE4B95BF440D}.Debug|x64.ActiveCfg = Debug|Win32
+		{E9417ED1-4243-42D7-B43F-DE4B95BF440D}.Debug|x86.ActiveCfg = Debug|Win32
+		{E9417ED1-4243-42D7-B43F-DE4B95BF440D}.Debug|x86.Build.0 = Debug|Win32
+		{E9417ED1-4243-42D7-B43F-DE4B95BF440D}.Release|x64.ActiveCfg = Release|Win32
+		{E9417ED1-4243-42D7-B43F-DE4B95BF440D}.Release|x86.ActiveCfg = Release|Win32
+		{E9417ED1-4243-42D7-B43F-DE4B95BF440D}.Release|x86.Build.0 = Release|Win32
+		{141CEBF6-A03B-469E-966E-231B416F4EAF}.Debug|x64.ActiveCfg = Debug|Win32
+		{141CEBF6-A03B-469E-966E-231B416F4EAF}.Debug|x86.ActiveCfg = Debug|Win32
+		{141CEBF6-A03B-469E-966E-231B416F4EAF}.Debug|x86.Build.0 = Debug|Win32
+		{141CEBF6-A03B-469E-966E-231B416F4EAF}.Release|x64.ActiveCfg = Release|Win32
+		{141CEBF6-A03B-469E-966E-231B416F4EAF}.Release|x86.ActiveCfg = Release|Win32
+		{141CEBF6-A03B-469E-966E-231B416F4EAF}.Release|x86.Build.0 = Release|Win32
+		{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3}.Debug|x64.ActiveCfg = Debug|Win32
+		{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3}.Debug|x86.ActiveCfg = Debug|Win32
+		{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3}.Debug|x86.Build.0 = Debug|Win32
+		{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3}.Release|x64.ActiveCfg = Release|Win32
+		{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3}.Release|x86.ActiveCfg = Release|Win32
+		{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3}.Release|x86.Build.0 = Release|Win32
+		{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0}.Debug|x64.ActiveCfg = Debug|Win32
+		{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0}.Debug|x86.ActiveCfg = Debug|Win32
+		{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0}.Debug|x86.Build.0 = Debug|Win32
+		{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0}.Release|x64.ActiveCfg = Release|Win32
+		{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0}.Release|x86.ActiveCfg = Release|Win32
+		{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0}.Release|x86.Build.0 = Release|Win32
+		{EE57BC43-0540-414E-83E9-CBF1FBFAB770}.Debug|x64.ActiveCfg = Debug|Win32
+		{EE57BC43-0540-414E-83E9-CBF1FBFAB770}.Debug|x86.ActiveCfg = Debug|Win32
+		{EE57BC43-0540-414E-83E9-CBF1FBFAB770}.Debug|x86.Build.0 = Debug|Win32
+		{EE57BC43-0540-414E-83E9-CBF1FBFAB770}.Release|x64.ActiveCfg = Release|Win32
+		{EE57BC43-0540-414E-83E9-CBF1FBFAB770}.Release|x86.ActiveCfg = Release|Win32
+		{EE57BC43-0540-414E-83E9-CBF1FBFAB770}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E9417ED1-4243-42D7-B43F-DE4B95BF440D} = {9C214CE9-90F5-48B4-B6AA-6AFB3170B12B}
+		{141CEBF6-A03B-469E-966E-231B416F4EAF} = {9C214CE9-90F5-48B4-B6AA-6AFB3170B12B}
+		{A00FF0DF-A6A2-4B4B-8B21-1ED7C32ACDA3} = {9C214CE9-90F5-48B4-B6AA-6AFB3170B12B}
+		{6F5CF34E-EE6B-4CDC-802C-4905EB1FB6E0} = {9C214CE9-90F5-48B4-B6AA-6AFB3170B12B}
+		{EE57BC43-0540-414E-83E9-CBF1FBFAB770} = {9C214CE9-90F5-48B4-B6AA-6AFB3170B12B}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AD56057E-A3BD-423A-A1D1-9D2D3AD8D93C}
+		SolutionGuid = {69FEF70F-7B84-40DE-9C7E-A9053027D6EC}
 	EndGlobalSection
 EndGlobal

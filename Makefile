@@ -6,8 +6,7 @@ C++ = g++
 CC = gcc
 INCLUDE_FLAG = -include
 INCPATH = -I./ -I./include
-LIBPATH = -lpthread -lz -L./lib_linux -lRtspClient -lARtcStrm -lRtxpChan -lXUdpRpc -lboringssl 
-
+LIBPATH = -lpthread -lz -L./lib_linux -lRtspClient -lRtcLite
 CCFLAGS += -Wall -D_GNU_SOURCE -DNDEBUG -O2 -DPOSIX -DARRTC_EXPORT -DNO_DL -DFEATURE_ENABLE_SSL -D__STDC_FORMAT_MACROS -D__STDC_CONSTANT_MACROS
 LFLAGS	= -w -lrt -ldl 
 
@@ -20,7 +19,8 @@ CFILES = \
 CPPFILES = \
     ./config.cpp \
     ./main.cpp \
-	./RtspToRtc.cpp \
+	./PullToRtc1xN.cpp \
+	./PullToRtcNxN.cpp \
 	./XUtil.cpp
 
 		
@@ -33,7 +33,10 @@ $(TARGET): $(CFILES:.c=.o) $(CCFILES:.cc=.o) $(CPPFILES:.cpp=.o)
 	$(CXX) $(LFLAGS) $(CFILES:.c=.o) $(CCFILES:.cc=.o) $(CPPFILES:.cpp=.o) -o $(TARGET) $(LIBPATH)
 
 install: 
-	install -m 664 ArRtspTool ../out/Linux
+#	install -m 664 ArRtspTool ../out/Linux
+	rm -rf ./lib_run
+	mkdir ./lib_run
+	cp ./lib_linux/* ./lib_run/
 
 clean:
 	rm -f $(TARGET) $(CFILES:.c=.o) $(CCFILES:.cc=.o) $(CPPFILES:.cpp=.o)
