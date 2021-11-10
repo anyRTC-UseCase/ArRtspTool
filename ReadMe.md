@@ -57,6 +57,14 @@ Makefile.tx		- Nvidia TX2
 ***# ./run.sh stop ArRtspTool
 ```
 
+​	**Windows平台运行**
+
+```
+拷贝rtsp.conf到lib_win目录下
+打开Cmd，cd 到xxx/lib_win目录下
+执行：ArRtspTool.exe rtsp.conf
+```
+
 
 
 ### 三，如何配置
