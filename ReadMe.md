@@ -69,31 +69,88 @@ Makefile.tx		- Nvidia TX2
 
 ### 三，如何配置
 
+#### 1XN配置:源只有1个，可以转到1个或多个频道中去
+
+> chan_id=808080;909090这样配置，然后从下方寻找对应房间的配置
+>
+> 当type=nvcam；该配置为当视频源为USB摄像头或者窗口时配置，然后在配置dev_id
+>
+> 当type=rtsp；内部会读取你的rtsp的url，以及拉取rtsp所需要的协议use_tcp
+
+##### 1个RTSP源转到多个频道的配置
+
 ```
-[rtsp]
-url=你的Rtsp流的Url
-
-[nv]
-dev_id=设备ID(/dev/video0)
-
 [rtc]
 app_id=rtc的AppId，
-chan_id=频道ID,可设置任意值，web或App通过此ID可以观看rtsp的流
-#mode: 1xN; NxN
-mode=NxN
+chan_id=808080;909090
+mode=1xN
 
 [1xN]
 type=rtsp
 url=你的Rtsp流的Url
 use_tcp=1
+```
 
+##### 1个RTSP源转到1个频道的配置
+
+```
+[rtc]
+app_id=rtc的AppId，
+chan_id=808080
+mode=1xN
+
+[1xN]
+type=rtsp
+url=你的Rtsp流的Url
+use_tcp=1
+```
+
+##### 1个nvcam源转到1个频道的配置
+
+```
+[rtc]
+app_id=rtc的AppId，
+chan_id=808080
+mode=1xN
+
+[1xN]
+type=nvcam
+dev_id=设备ID(/dev/video0)
+```
+
+##### 1个nvcam源转到多个频道的配置
+
+```
+[rtc]
+app_id=rtc的AppId，
+chan_id=808080;909090
+mode=1xN
+
+[1xN]
+type=nvcam
+dev_id=设备ID(/dev/video0)
+```
+
+#### NXN配置:源有多个，可以转到1个或多个频道中去
+
+> 下面配置为909090频道转一路流，为808080频道转一路流。
+>
+> 如果想多个源转到一个频道，可以配置为url=rtsp1;rtsp2 ，中间用分号分割
+
+```
+[rtc]
+app_id=rtc的AppId，
+chan_id=808080;909090
+mode=NxN
+
+[NxN]
 [909090]
 type=nvcam
 dev_id=设备ID(/dev/video0)
 
 [808080]
 type=rtsp
-url=你的Rtsp流的Url1;你的Rtsp流的Url2 (多个流地址之间用;分割，表示将多个视频源转到一个房间里面)
+url=你的Rtsp流的Url1
 use_tcp=1
 ```
 
