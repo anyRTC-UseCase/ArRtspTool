@@ -21,6 +21,7 @@ int PullToRtc1xN::StartTask(const std::string& strUrlOrId, PullMode pmode, const
 		rtc_client_->set_parameters("{\"Cmd\":\"SetStreamCast\", \"HostUId\": \"NoBody\"}");
 		rtc_client_->join_channel(strChanId.c_str(), "", 0);
 		lst_chan_id_.push_back(strChanId);
+		str_chan_id_ = strChanId;
 	}
 	if (pmode == PM_RTSP_UDP || pmode == PM_RTSP_TCP) {
 		if (rtsp_client_ == NULL) {
@@ -71,6 +72,12 @@ void PullToRtc1xN::StopTask()
 #endif
 
 	if (rtc_client_ != NULL) {
+		rtc_client_->leave_channel(str_chan_id_.c_str());
+		std::list<std::string>::iterator itlr = lst_chan_id_.begin();
+		while (itlr != lst_chan_id_.end()) {
+			rtc_client_->leave_channel((*itlr).c_str());
+			itlr++;
+		}
 		rtc_client_->fini();
 		rtc_client_ = NULL;
 	}

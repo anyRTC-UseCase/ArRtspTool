@@ -50,6 +50,7 @@ private:
 	RtxNvCap*		nvcap_client_;
 
 	IArLiteApi*		rtc_client_;
+	std::string		str_chan_id_;
 	std::list<std::string> lst_chan_id_;
 };
 
