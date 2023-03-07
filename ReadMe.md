@@ -178,7 +178,18 @@ use_tcp=1
 **Buglist：**
  Bug001 : TX2: no element "h264parse"
  解决001：
- `sudo apt-get install gstreamer1.0-plugins-bad`
+ 	`sudo apt-get install gstreamer1.0-plugins-bad`
+
+Bug002:ERROR: from element /GstPipeline:pipeline0/GstV4l2Src:v4l2src0: Internal data stream error.
+		Additional debug info:
+		gstbasesrc.c(2939): gst_base_src_loop (): /GstPipeline:pipeline0/GstV4l2Src:v4l2src0:
+		streaming stopped, reason not-negotiated (-4)
+
+解决002：如何获取支持的分辨率，修改为支持的分辨率
+
+​	`sudo apt-get install v4l-utils`
+
+​	`v4l2-ctl -d /dev/video0 --list-formats-ext`
 
 **anyRTC创业扶持计划**
 

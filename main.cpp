@@ -16,6 +16,10 @@
 #include "PullToRtcNxN.h"
 #include "XUtil.h"
 
+int gVidWidth = 640;
+int gVidHeight = 480;
+int gVidFps = 30;
+int gVidBitrate = 512000;
 int main(int argc, char* argv[])
 {
 	ConfigSet	conf;
@@ -48,6 +52,11 @@ int main(int argc, char* argv[])
 		getchar();
 		return -1;
 	}
+	gVidWidth = conf.GetIntVal("vid", "w", 640);
+	gVidHeight = conf.GetIntVal("vid", "h", 480);
+	gVidFps = conf.GetIntVal("vid", "fps", 30);
+	gVidBitrate = conf.GetIntVal("vid", "bitrate", 512)*1000;
+	
 	//* 支持单路流推多频道
 	std::vector<std::string> strArr;
 	int nArr = XSplitChar(strChanIds.c_str(), ';', &strArr);
