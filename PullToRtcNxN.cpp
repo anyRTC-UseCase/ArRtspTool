@@ -1,6 +1,11 @@
 #include "PullToRtcNxN.h"
 #include "XUtil.h"
 
+extern int gVidWidth;
+extern int gVidHeight;
+extern int gVidFps;
+extern int gVidBitrate;
+
 PullToRtcNxN::NvPull::NvPull(IArLiteChan* rtcClient)
 	: rtc_client_(rtcClient)
 	, nvcap_client_(NULL)
@@ -35,7 +40,7 @@ void PullToRtcNxN::NvPull::Start(const std::string& strUId, const std::string& s
 	if (nvcap_client_ == NULL) {
 		str_uid_ = strUId;
 		nvcap_client_ = createRtxNvCap();
-		nvcap_client_->SetVideoParam(640, 480, 30, 512000);
+		nvcap_client_->SetVideoParam(gVidWidth, gVidHeight, gVidFps, gVidBitrate);
 		nvcap_client_->SetRtxNvCapEnvent(this);
 
 		nvcap_client_->StartCap(strDevId.c_str(), 7081);

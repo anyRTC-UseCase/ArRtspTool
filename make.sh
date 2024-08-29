@@ -9,7 +9,6 @@ elif [ "$1" = "r-pi" ]; then
 elif [ "$1" = "nv-tx" ]; then
 	echo "Platform: Nvdia Jetson tx"
 	rm -f Makefile && cp Makefile.tx Makefile
-	
 else
 printf "Please input platform: (common, r-pi, nv-tx) \r\n"
 exit;

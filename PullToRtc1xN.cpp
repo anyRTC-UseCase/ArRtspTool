@@ -1,5 +1,10 @@
 #include "PullToRtc1xN.h"
 
+extern int gVidWidth;
+extern int gVidHeight;
+extern int gVidFps;
+extern int gVidBitrate;
+
 PullToRtc1xN::PullToRtc1xN(void)
 	: rtsp_client_(NULL)
 	, nvcap_client_(NULL)
@@ -32,7 +37,7 @@ int PullToRtc1xN::StartTask(const std::string& strUrlOrId, PullMode pmode, const
 #ifdef RTX_NV_CAP
 		if (nvcap_client_ == NULL) {
 			nvcap_client_ = createRtxNvCap();
-			nvcap_client_->SetVideoParam(640, 480, 30, 512000);
+			nvcap_client_->SetVideoParam(gVidWidth, gVidHeight, gVidFps, gVidBitrate);
 			nvcap_client_->SetRtxNvCapEnvent(this);
 
 			nvcap_client_->StartCap(strUrlOrId.c_str(), 7081);
